@@ -6,6 +6,9 @@ import ContactForm from './components/Contact';
 import './App.css';
 
 function App() {
+
+  const [contactSelected, setContactSelected] = useState(false);
+
   const [categories] = useState([
     {
       name: 'commercial',
@@ -24,11 +27,23 @@ function App() {
         categories={categories}
         setCurrentCategory={setCurrentCategory}
         currentCategory={currentCategory}
+        contactSelected={contactSelected}
+        setContactSelected={setContactSelected}
         ></Nav>
       <main>
-        <ContactForm></ContactForm>
-        <Gallery currentCategory={currentCategory}></Gallery>
-        <About></About>
+        {/* This syntax is saying if contactSelected = false then do the first section else do the second part after the :
+        This syntax is ? and : called a ternary operator */}
+
+        {/* Wrapping elements in <></> allows you to render multiple elements in a react fragment due to the fragment being the parent
+        and the two child elements are <Gallery> and <About> */}
+        {!contactSelected ? (
+          <>
+            <Gallery currentCategory={currentCategory}></Gallery>
+            <About></About>
+          </>
+        ) : (
+          <ContactForm></ContactForm>
+        )}
       </main>
     </div>
   );
